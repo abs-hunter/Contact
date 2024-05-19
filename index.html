@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Contact</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff; /* Plain white background */
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff; /* White background for container */
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-top: 20px;
+            object-fit: cover; /* Ensure the image is fully visible */
+        }
+        .name {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        .description {
+            font-size: 14px;
+            color: gray;
+            margin-top: 5px;
+        }
+        .icon-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        .icon-container img {
+            width: 150%;
+            height: auto;
+            max-width: 50px; /* Maximum size for each icon */
+        }
+        .icon-wrapper {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .social-container,
+        .subscribe-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .social-icon-wrapper,
+        .subscribe-icon-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .social-icon-wrapper img,
+        .subscribe-icon-wrapper img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .social-icon-wrapper a,
+        .subscribe-icon-wrapper a {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="profileImage" src="https://raw.githubusercontent.com/mashunterbd/Vcard/main/Images/profile.png" alt="MAS HUNTER" class="profile-img">
+        <div class="name">MAS HUNTER</div>
+        <div class="description">
+            JR. Penetration Tester | Ethical Hacker | Cyber Security | Content Creator | Blogging | CTF | CSE | WiFi Penetration Tester
+        </div>
+        <div class="icon-container">
+            <div class="icon-wrapper">
+                <a href="tel:+8801875489971">
+                    <img src="call.png" alt="Call Us Icon">
+                </a>
+            </div>
+            <div class="icon-wrapper">
+                <a href="mailto:masshuvo.bd@gmail.com">
+                    <img src="email.png" alt="Email Us Icon">
+                </a>
+            </div>
+            <div class="icon-wrapper">
+                <a href="https://mashunterbd.github.io/mashunter/" target="_blank">
+                    <img src="web.png" alt="Visit Website Icon">
+                </a>
+            </div>
+        </div>
+        <button id="saveContactBtn" class="btn btn-primary">Save to Contacts</button>
+
+        <div class="social-container">
+            <h2>Follow me on:</h2>
+            <div class="social-icon-wrapper">
+                <a href="https://www.facebook.com/mashunter.fb" target="_blank">
+                    <img src="facebook.png" alt="Facebook Icon">Facebook: mashunter.fb
+                </a>
+            </div>
+            <div class="social-icon-wrapper">
+                <a href="https://www.instagram.com/mashunter.ins" target="_blank">
+                    <img src="instagram.png" alt="Instagram Icon">Instagram: mashunter.ins
+                </a>
+            </div>
+            <div class="social-icon-wrapper">
+                <a href="https://www.linkedin.com/in/mashunter" target="_blank">
+                    <img src="linkedin.png" alt="LinkedIn Icon">LinkedIn: mashunter
+                </a>
+            </div>
+            <div class="social-icon-wrapper">
+                <a href="https://twitter.com/mashunterbd" target="_blank">
+                    <img src="twitter.png" alt="Twitter Icon">Twitter: mashunterbd
+                </a>
+            </div>
+        </div>
+
+        <div class="subscribe-container">
+            <h2>Subscribe me on:</h2>
+            <div class="subscribe-icon-wrapper">
+                <a href="https://www.youtube.com/@mashunter" target="_blank">
+                    <img src="youtube.png" alt="YouTube Icon">YouTube: @mashunter
+                </a>
+            </div>
+            <div class="subscribe-icon-wrapper">
+                <a href="https://medium.com/@mashunter" target="_blank">
+                    <img src="medium.png" alt="Medium Icon">Medium: @mashunter
+                </a>
+            </div>
+            <div class="subscribe-icon-wrapper">
+                <a href="https://github.com/mashunterbd" target="_blank">
+                    <img src="github.png" alt="GitHub Icon">GitHub: mashunterbd
+                </a>
+            </div>
+            <div class="subscribe-icon-wrapper">
+                <a href="https://www.facebook.com/MASSHUVO.FB" target="_blank">
+                    <img src="facebook-page.png" alt="Facebook Page Icon">Facebook Page: MASSHUVO.FB
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('saveContactBtn').addEventListener('click', function() {
+            const imageUrl = document.getElementById('profileImage').src;
+
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64data = reader.result.split(',')[1];
+                        const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:MAS HUNTER
+TEL:+8801875489971
+EMAIL:masshuvo.bd@gmail.com
+URL:https://mashunterbd.github.io/mashunter/
+NOTE:Follow me on:
+NOTE:Facebook - https://www.facebook.com/mashunter.fb
+NOTE:Instagram - https://www.instagram.com/mashunter.ins
+NOTE:LinkedIn - https://www.linkedin.com/in/mashunter
+NOTE:Twitter - https://twitter.com/mashunterbd
+NOTE:Subscribe me on:
+NOTE:YouTube - https://www.youtube.com/@mashunter
+NOTE:Medium - https://medium.com/@mashunter
+NOTE:GitHub - https://github.com/mashunterbd
+NOTE:Facebook Page - https://www.facebook.com/MASSHUVO.FB
+PHOTO;ENCODING=b;TYPE=JPEG:${base64data}
+END:VCARD`;
+
+                        const vCardBlob = new Blob([vCardData], { type: 'text/vcard' });
+                        const url = URL.createObjectURL(vCardBlob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'contact.vcf';
+                        a.style.display = 'none';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    };
+                    reader.readAsDataURL(blob);
+                })
+                .catch(error => console.error('Error fetching the image:', error));
+        });
+    </script>
+</body>
+</html>

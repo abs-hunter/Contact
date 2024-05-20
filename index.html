@@ -7,19 +7,61 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-           
-            margin: 0;
-            background-color: /* Plain white background */
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .toggle-switch {
+            appearance: none;
+            width: 60px;
+            height: 34px;
+            background: #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+
+        .toggle-switch::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.5s ease;
+        }
+
+        .toggle-switch:checked {
+            background: #4CAF50;
+        }
+
+        .toggle-switch:checked::after {
+            transform: translateX(26px);
+        }
+
         .container {
             text-align: center;
             padding: 20px;
-            background: #fff; /* White background for container */
+            background: #fff; /* Default light mode background */
+            transition: background 0.5s ease, color 0.5s ease;
         }
+
+        .dark-mode .container {
+            background: #333; /* Dark mode background */
+        }
+
         .profile-img {
             width: 150px;
             height: 150px;
@@ -27,15 +69,22 @@
             margin-top: 20px;
             object-fit: cover; /* Ensure the image is fully visible */
         }
+
         .name {
             font-size: 24px;
             margin-top: 10px;
         }
+
         .description {
             font-size: 14px;
             color: gray;
             margin-top: 5px;
         }
+
+        .dark-mode .description {
+            color: #ccc; /* Dark mode description color */
+        }
+
         .icon-container {
             display: flex;
             justify-content: space-around;
@@ -44,44 +93,56 @@
             max-width: 300px;
             margin: 20px auto;
         }
+
         .icon-container img {
             width: 150%;
             height: auto;
             max-width: 50px; /* Maximum size for each icon */
         }
+
         .icon-wrapper {
             width: 30%;
             display: flex;
             justify-content: center;
         }
+
         button {
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
         }
+
         .social-container,
         .subscribe-container {
             text-align: left;
             margin-top: 20px;
         }
+
         .social-icon-wrapper,
         .subscribe-icon-wrapper {
             display: flex;
             align-items: center;
             margin-top: 10px;
         }
+
         .social-icon-wrapper img,
         .subscribe-icon-wrapper img {
             width: 30px;
             height: 30px;
             margin-right: 10px;
         }
+
         .social-icon-wrapper a,
         .subscribe-icon-wrapper a {
             text-decoration: none;
             color: #000;
             font-size: 16px;
+        }
+
+        .dark-mode .social-icon-wrapper a,
+        .dark-mode .subscribe-icon-wrapper a {
+            color: #fff; /* Dark mode link color */
         }
     </style>
 </head>
@@ -110,6 +171,11 @@
             </div>
         </div>
         <button id="saveContactBtn" class="btn btn-primary">Save to Contacts</button>
+        <div class="toggle-container">
+            <label for="toggleSwitch">
+                <input type="checkbox" id="toggleSwitch" class="toggle-switch">
+            </label>
+        </div>
 
         <div class="social-container">
             <h2>Follow me on:</h2>
@@ -203,6 +269,13 @@ END:VCARD`;
                     reader.readAsDataURL(blob);
                 })
                 .catch(error => console.error('Error fetching the image:', error));
+        });
+
+        const toggleSwitch = document.getElementById('toggleSwitch');
+        const body = document.body;
+
+        toggleSwitch.addEventListener('change', function() {
+            body.classList.toggle('dark-mode');
         });
     </script>
 </body>

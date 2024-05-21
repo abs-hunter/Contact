@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Contact</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .contact-form {
+            margin-top: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .contact-form label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+        }
+        .feedback {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-form">
+            <h2>Your Message:</h2>
+            <form id="contactForm">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="socialMedia">Social Media Account Link:</label>
+                <input type="text" id="socialMedia" name="socialMedia">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+            <div id="feedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- EmailJS Browser Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "7R_42A7vF5iUZDy6Y",
+          });
+       })();
+    </script>
+
+    <script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const socialMedia = document.getElementById('socialMedia').value;
+            const message = document.getElementById('message').value;
+
+            const templateParams = {
+                from_name: name,
+                social_media: socialMedia,
+                message: message,
+            };
+
+            emailjs.send('service_zmadp6n', 'template_peawucb', templateParams)
+                .then(function(response) {
+                    document.getElementById('feedback').innerText = 'Your message has been sent successfully.';
+                    document.getElementById('contactForm').reset();
+                }, function(error) {
+                    document.getElementById('feedback').innerText = 'An error occurred while sending your message. Please try again.';
+                });
+        });
+    </script>
+</body>
+</html>

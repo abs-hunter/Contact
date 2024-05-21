@@ -144,9 +144,74 @@
         .dark-mode .subscribe-icon-wrapper a {
             color: #fff; /* Dark mode link color */
         }
+        .rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* So it doesn't interfere with other elements */
+    overflow: hidden; /* To contain the falling elements */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.flower, .paper {
+    position: absolute;
+    top: -100px;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    opacity: 0;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.flower {
+    background-image: url('flower.png'); /* Replace with your flower image URL */
+    background-size: cover;
+}
+
+.paper {
+    background-image: url('paper.png'); /* Replace with your paper image URL */
+    background-size: cover;
+}
+.contact-button-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.contact-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
     </style>
 </head>
 <body>
+<div class="rain-container"></div>
+
     <div class="container">
         <img id="profileImage" src="https://raw.githubusercontent.com/mashunterbd/Vcard/main/Images/profile.png" alt="MAS HUNTER" class="profile-img">
         <div class="name">MAS HUNTER</div>
@@ -278,5 +343,37 @@ END:VCARD`;
             body.classList.toggle('dark-mode');
         });
     </script>
+    
+   <script>
+    function createFallingElements(type, count) {
+        const container = document.querySelector('.rain-container');
+        for (let i = 0; i < count; i++) {
+            const element = document.createElement('div');
+            element.classList.add(type);
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.animationDuration = Math.random() * 2 + 3 + 's'; // Random duration between 3s and 5s
+            container.appendChild(element);
+        }
+    }
+
+    function startRain() {
+        createFallingElements('flower', 30);
+        createFallingElements('paper', 30);
+        setTimeout(stopRain, 10000); // Stop after 10 seconds
+    }
+
+    function stopRain() {
+        const container = document.querySelector('.rain-container');
+        container.innerHTML = ''; // Remove all elements
+    }
+
+    window.addEventListener('load', startRain);
+</script>
+
+<!-- Add this at the bottom of your existing HTML content -->
+<div class="contact-button-container">
+    <a href="contact.html" class="btn btn-secondary contact-button">Contact me</a>
+</div>
+
 </body>
 </html>

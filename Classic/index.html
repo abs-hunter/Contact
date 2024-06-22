@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mas Hunter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 150px;
+            border-radius: 10px;
+        }
+        .header .text {
+            text-align: right;
+            max-width: 200px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333; /* Dark gray */
+        }
+        .header h2 {
+            margin: 0;
+            color: #555;
+            font-size: 18px;
+        }
+        .red-line {
+            width: 2px;
+            height: 150px;
+            background-color: red;
+            margin: 0 20px;
+        }
+        .about {
+            text-align: left; /* Align text to the left */
+            margin-bottom: 20px;
+        }
+        .about h2 {
+            color: #333; /* Dark gray */
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .about p {
+            color: #555;
+        }
+        .contact-info, .social-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .contact-info li, .social-links li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+        .contact-info li a, .social-links li a {
+            text-decoration: none;
+            color: #007BFF; /* Blue */
+            margin-left: 10px;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+        .contact-info li a:hover, .social-links li a:hover {
+            color: #0056b3; /* Darker blue on hover */
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping */
+            margin-top: 20px; /* Add margin to separate from contact info */
+        }
+        .social-links li {
+            margin: 10px; /* Add some space between items */
+        }
+        .social-links li a {
+            font-size: 24px;
+            color: #555;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+        .social-links li a:hover {
+            color: #007BFF; /* Blue on hover */
+        }
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .social-media-text {
+            text-align: right; /* Align text to the right */
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333; /* Dark gray */
+        }
+        .icon {
+            color: #555;
+            font-size: 20px;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+        .icon:hover {
+            color: #007BFF; /* Blue on hover */
+        }
+        .line-break {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+        .action-box {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .action-box h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333; /* Dark gray */
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-button {
+            padding: 8px 12px;
+            background-color: #007BFF; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+        }
+        .action-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header img {
+                margin-bottom: 10px;
+            }
+            .header .text {
+                text-align: center;
+            }
+            .red-line {
+                height: 2px;
+                width: 100%;
+                margin: 20px 0;
+            }
+            .about,
+            .social-media-text {
+                text-align: center; /* Center align on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="/profile-picture.jpg" alt="Mas Hunter">
+        <div class="red-line"></div>
+        <div class="text">
+            <h1>MAS Hunter</h1>
+            <h2>Ethical Hacker</h2>
+        </div>
+    </div>
+    
+    <div class="action-box">
+        <h3>Save to Phone Book</h3>
+        <div class="action-buttons">
+            <button id="saveContactBtn" class="action-button">Save</button>
+            <button id="shareBtn" class="action-button">Share</button>
+        </div>
+    </div>
+    
+    <div class="text">
+        <h2 style="color: #333;">About Me</h2>
+    </div>
+    <div class="about">
+        <p style="color: #555;">About me text goes here...</p>
+    </div>
+    
+    <div class="line-break"></div>
+    
+    <div class="text">
+        <h2 style="color: #333;">Contact</h2>
+    </div>
+    <ul class="contact-info">
+        <li><i class="fas fa-phone icon"></i><a href="tel:01875489971" style="color: #007BFF;">01875489971</a></li>
+        <li><i class="fas fa-envelope icon"></i><a href="mailto:mdabubakar.mail.bd@gmail.com" style="color: #007BFF;">mdabubakar.mail.bd@gmail.com</a></li>
+        <li><i class="fas fa-globe icon"></i><a href="https://www.tapmo.in" target="_blank" style="color: #007BFF;">www.tapmo.in</a></li>
+    </ul>
+    
+    <div class="line-break"></div>
+    
+    <div class="text">
+        <h2 style="color: #333;">Social Media</h2>
+    </div>
+    <ul class="social-links">
+        <li><a href="https://www.linkedin.com/in/mashunter" target="_blank"><i class="fab fa-linkedin" style="color: #007BFF;"></i></a></li>
+        <li><a href="https://www.facebook.com/mashunter.fb" target="_blank"><i class="fab fa-facebook" style="color: #1877F2;"></i></a></li>
+        <li><a href="https://www.instagram.com/mashunter.ins" target="_blank"><i class="fab fa-instagram" style="color: #E4405F;"></i></a></li>
+        <li><a href="https://twitter.com/mashunterbd" target="_blank"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></a></li>
+        <li><a href="https://www.tiktok.com/@mashunter" target="_blank"><i class="fab fa-tiktok" style="color: #000000;"></i></a></li>
+        <li><a href="https://www.imomessenger.com/" target="_blank"><i class="fas fa-comment-dots" style="color: #00bfff;"></i></a></li>
+        <li><a href="https://www.youtube.com/@mashunter" target="_blank"><i class="fab fa-youtube" style="color: #FF0000;"></i></a></li>
+        <li><a href="https://www.wechat.com/" target="_blank"><i class="fab fa-weixin" style="color: #1AAD19;"></i></a></li>
+        <li><a href="https://www.skype.com/" target="_blank"><i class="fab fa-skype" style="color: #00AFF0;"></i></a></li>
+        <li><a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i></a></li>
+        <li><a href="https://www.messenger.com/" target="_blank"><i class="fab fa-facebook-messenger" style="color: #0078FF;"></i></a></li>
+        <li><a href="https://www.snapchat.com/" target="_blank"><i class="fab fa-snapchat-ghost" style="color: #FFFC00;"></i></a></li>
+        <li><a href="https://discord.com/" target="_blank"><i class="fab fa-discord" style="color: #7289DA;"></i></a></li>
+        <li><a href="https://telegram.org/" target="_blank"><i class="fab fa-telegram" style="color: #0088cc;"></i></a></li>
+        <li><a href="https://line.me/" target="_blank"><i class="fab fa-line" style="color: #00B900;"></i></a></li>
+    </ul>
+</div>
+
+<script>
+    document.getElementById('saveContactBtn').addEventListener('click', function() {
+        const imageUrl = document.querySelector('.header img').src;
+
+        fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64data = reader.result.split(',')[1];
+                    const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:MAS HUNTER
+TEL:+8801875489971
+EMAIL:masshuvo.mail.bd@gmail.com
+URL:https://mashunterbd.github.io/mashunter/
+NOTE:Follow me on:
+NOTE:Facebook - https://www.facebook.com/mashunter.fb
+NOTE:Instagram - https://www.instagram.com/mashunter.ins
+NOTE:LinkedIn - https://www.linkedin.com/in/mashunter
+NOTE:Twitter - https://twitter.com/mashunterbd
+NOTE:Subscribe me on:
+NOTE:YouTube - https://www.youtube.com/@mashunter
+NOTE:Medium - https://medium.com/@mashunter
+NOTE:GitHub - https://github.com/mashunterbd
+NOTE:Facebook Page - https://www.facebook.com/MASSHUVO.FB
+PHOTO;ENCODING=b;TYPE=JPEG:${base64data}
+END:VCARD`;
+
+                    const vCardBlob = new Blob([vCardData], { type: 'text/vcard' });
+                    const url = URL.createObjectURL(vCardBlob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'contact.vcf';
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                };
+                reader.readAsDataURL(blob);
+            })
+            .catch(error => console.error('Error fetching the image:', error));
+    });
+
+    document.getElementById('shareBtn').addEventListener('click', function() {
+        const shareText = 'Check out MAS Hunter!'; // Customize your share text here
+        const shareUrl = window.location.href; // URL to share (current page)
+        
+        if (navigator.share) { // Check if Web Share API is supported
+            navigator.share({
+                title: 'MAS Hunter',
+                text: shareText,
+                url: shareUrl
+            })
+            .then(() => console.log('Shared successfully'))
+            .catch(error => console.error('Error sharing:', error));
+        } else {
+            // Fallback for browsers that do not support Web Share API
+            const shareString = `mailto:?subject=${encodeURIComponent('Check out MAS Hunter!')}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
+            window.location.href = shareString;
+        }
+    });
+</script>
+
+</body>
+  </html>
+      

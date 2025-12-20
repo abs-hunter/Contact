@@ -3,295 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Contact</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>MD Abu Bakar Siddik | Digital Contact</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a0e27;
+            --card-light: #ffffff;
+            --card-dark: #1a1f3a;
+            --text-light: #2d3436;
+            --text-dark: #e8eaed;
+            --accent: #667eea;
+            --accent-secondary: #764ba2;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
         body {
-            background-color: #fff;
-            color: #000;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
         }
 
         body.dark-mode {
-            background-color: #222;
-            color: #fff;
+            background: var(--bg-dark);
+            color: var(--text-dark);
         }
 
-        .toggle-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .toggle-switch {
-            appearance: none;
-            width: 60px;
-            height: 34px;
-            background: #ccc;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.5s ease;
-        }
-
-        .toggle-switch::after {
-            content: "";
-            display: block;
-            width: 30px;
-            height: 30px;
-            background: #fff;
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
             border-radius: 50%;
-            transition: transform 0.5s ease;
+            opacity: 0.3;
+            animation: float 20s infinite;
         }
 
-        .toggle-switch:checked {
-            background: #4CAF50;
-        }
-
-        .toggle-switch:checked::after {
-            transform: translateX(26px);
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-50px); }
+            75% { transform: translateY(-100px) translateX(100px); }
         }
 
         .container {
-            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
-            background: #fff; /* Default light mode background */
-            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+            z-index: 2;
         }
 
-        .dark-mode .container {
-            background: #333; /* Dark mode background */
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 12px 48px rgba(102, 126, 234, 0.5);
+        }
+
+        .theme-toggle i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .profile-card {
+            background: var(--card-light);
+            border-radius: 32px;
+            padding: 40px;
+            margin-top: 100px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .profile-card {
+            background: var(--card-dark);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            background: var(--gradient);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            margin-top: 20px;
-            object-fit: cover; /* Ensure the image is fully visible */
+            object-fit: cover;
+            border: 6px solid var(--card-light);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .profile-img {
+            border-color: var(--card-dark);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
         }
 
         .name {
-            font-size: 24px;
-            margin-top: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .description {
-            font-size: 14px;
-            color: gray;
-            margin-top: 5px;
+            text-align: center;
+            line-height: 1.8;
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 15px;
         }
 
         .dark-mode .description {
-            color: #ccc; /* Dark mode description color */
+            color: #a0a5b8;
         }
 
-        .icon-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            max-width: 300px;
-            margin: 20px auto;
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 30px 0;
         }
 
-        .icon-container img {
-            width: 150%;
-            height: auto;
-            max-width: 50px; /* Maximum size for each icon */
-        }
-
-        .icon-wrapper {
-            width: 30%;
-            display: flex;
-            justify-content: center;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
+        .action-btn {
+            background: var(--gradient);
+            border: none;
+            border-radius: 16px;
+            padding: 20px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .social-container,
-        .subscribe-container {
-            text-align: left;
-            margin-top: 20px;
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .social-icon-wrapper,
-        .subscribe-icon-wrapper {
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn i {
+            font-size: 28px;
+            color: white;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .action-btn span {
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(102, 126, 234, 0.5);
+        }
+
+        .social-section {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            margin-top: 10px;
+            gap: 10px;
         }
 
-        .social-icon-wrapper img,
-        .subscribe-icon-wrapper img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
 
-        .social-icon-wrapper a,
-        .subscribe-icon-wrapper a {
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(102, 126, 234, 0.08);
+            border-radius: 12px;
             text-decoration: none;
-            color: #000;
-            font-size: 16px;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .dark-mode .social-icon-wrapper a,
-        .dark-mode .subscribe-icon-wrapper a {
-            color: #fff; /* Dark mode link color */
+        .social-link:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: var(--accent);
+            transform: translateX(4px);
         }
-        .rain-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* So it doesn't interfere with other elements */
-    overflow: hidden; /* To contain the falling elements */
-    z-index: 1000; /* Ensure it appears above other elements */
-}
 
-.flower, .paper {
-    position: absolute;
-    top: -100px;
-    width: 30px;
-    height: 30px;
-    pointer-events: none;
-    opacity: 0;
-    animation: fall linear infinite;
-}
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
 
-@keyframes fall {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-}
+        .social-icon i {
+            color: white;
+            font-size: 18px;
+        }
 
-.flower {
-    background-image: url('flower.png'); /* Replace with your flower image URL */
-    background-size: cover;
-}
+        .social-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-.paper {
-    background-image: url('paper.png'); /* Replace with your paper image URL */
-    background-size: cover;
-}
-.contact-button-container {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+        .qr-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 24px;
+            text-align: center;
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+        }
 
-.contact-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
+        .qr-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.contact-button:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
-}
+        .qr-subtitle {
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
 
+        .dark-mode .qr-subtitle {
+            color: #a0a5b8;
+        }
+
+        #qrcode {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .profile-card {
+                padding: 30px 20px;
+                margin-top: 80px;
+            }
+
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .name {
+                font-size: 26px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .quick-actions {
+                gap: 12px;
+            }
+
+            .action-btn {
+                padding: 16px;
+            }
+
+            .action-btn i {
+                font-size: 24px;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-section {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="rain-container"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
 
     <div class="container">
-        <img id="profileImage" src="https://raw.githubusercontent.com/mashunterbd/Vcard/main/Images/profile.png" alt="MAS HUNTER" class="profile-img">
-        <div class="name">MD Abu Bakar Siddik</div>
-        <div class="description">
-            JR. Penetration Tester | Ethical Hacker | Cyber Security | Content Creator | Blogging | CTF | CSE | WiFi Penetration Tester
-        </div>
-        <div class="icon-container">
-            <div class="icon-wrapper">
-                <a href="tel:+8801875489971">
-                    <img src="call.png" alt="Call Us Icon">
+        <div class="profile-card">
+            <div class="profile-image-wrapper">
+                <img id="profileImage" src="https://raw.githubusercontent.com/mashunterbd/Vcard/main/Images/profile.png" alt="Profile" class="profile-img">
+            </div>
+
+            <h1 class="name">MD Abu Bakar Siddik</h1>
+            <p class="description">
+                JR. Penetration Tester | Ethical Hacker | Cyber Security | Content Creator | Blogging | CTF | CSE | WiFi Penetration Tester
+            </p>
+
+            <div class="quick-actions">
+                <a href="tel:+8801875489971" class="action-btn">
+                    <i class="fas fa-phone"></i>
+                    <span>Call</span>
+                </a>
+                <a href="mailto:masshuvo.bd@gmail.com" class="action-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://mashunterbd.github.io/mashunter/" target="_blank" class="action-btn">
+                    <i class="fas fa-globe"></i>
+                    <span>Website</span>
                 </a>
             </div>
-            <div class="icon-wrapper">
-                <a href="mailto:masshuvo.bd@gmail.com">
-                    <img src="email.png" alt="Email Us Icon">
-                </a>
+
+            <button class="save-btn" id="saveContactBtn">
+                <i class="fas fa-download"></i> Save to Contacts
+            </button>
+
+            <div class="social-section">
+                <h2 class="section-title">Connect With Me</h2>
+                <div class="social-grid">
+                    <a href="https://www.facebook.com/mashunter.fb" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                        <span class="social-text">mashunter.fb</span>
+                    </a>
+                    <a href="https://www.instagram.com/mashunter.ins" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                        <span class="social-text">mashunter.ins</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mashunter" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <span class="social-text">mashunter</span>
+                    </a>
+                    <a href="https://twitter.com/mashunterbd" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-twitter"></i></div>
+                        <span class="social-text">mashunterbd</span>
+                    </a>
+                </div>
             </div>
-            <div class="icon-wrapper">
-                <a href="https://mashunterbd.github.io/mashunter/" target="_blank">
-                    <img src="web.png" alt="Visit Website Icon">
-                </a>
+
+            <div class="social-section">
+                <h2 class="section-title">Subscribe & Follow</h2>
+                <div class="social-grid">
+                    <a href="https://www.youtube.com/@mashunter" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-youtube"></i></div>
+                        <span class="social-text">@mashunter</span>
+                    </a>
+                    <a href="https://medium.com/@mashunter" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-medium"></i></div>
+                        <span class="social-text">@mashunter</span>
+                    </a>
+                    <a href="https://github.com/mashunterbd" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fab fa-github"></i></div>
+                        <span class="social-text">mashunterbd</span>
+                    </a>
+                    <a href="https://www.facebook.com/MASSHUVO.FB" target="_blank" class="social-link">
+                        <div class="social-icon"><i class="fas fa-thumbs-up"></i></div>
+                        <span class="social-text">MASSHUVO.FB</span>
+                    </a>
+                </div>
             </div>
-        </div>
-        <button id="saveContactBtn" class="btn btn-primary">Save to Contacts</button>
-        <div class="toggle-container">
-            <label for="toggleSwitch">
-                <input type="checkbox" id="toggleSwitch" class="toggle-switch">
-            </label>
         </div>
 
-        <div class="social-container">
-            <h2>Follow me on:</h2>
-            <div class="social-icon-wrapper">
-                <a href="https://www.facebook.com/mashunter.fb" target="_blank">
-                    <img src="facebook.png" alt="Facebook Icon">Facebook: mashunter.fb
-                </a>
-            </div>
-            <div class="social-icon-wrapper">
-                <a href="https://www.instagram.com/mashunter.ins" target="_blank">
-                    <img src="instagram.png" alt="Instagram Icon">Instagram: mashunter.ins
-                </a>
-            </div>
-            <div class="social-icon-wrapper">
-                <a href="https://www.linkedin.com/in/mashunter" target="_blank">
-                    <img src="linkedin.png" alt="LinkedIn Icon">LinkedIn: mashunter
-                </a>
-            </div>
-            <div class="social-icon-wrapper">
-                <a href="https://twitter.com/mashunterbd" target="_blank">
-                    <img src="twitter.png" alt="Twitter Icon">Twitter: mashunterbd
-                </a>
-            </div>
+        <div class="qr-section">
+            <h3 class="qr-title"><i class="fas fa-qrcode"></i> Quick Access QR Code</h3>
+            <p class="qr-subtitle">Scan to download contact instantly on your device</p>
+            <div id="qrcode"></div>
         </div>
 
-        <div class="subscribe-container">
-            <h2>Subscribe me on:</h2>
-            <div class="subscribe-icon-wrapper">
-                <a href="https://www.youtube.com/@mashunter" target="_blank">
-                    <img src="youtube.png" alt="YouTube Icon">YouTube: @mashunter
-                </a>
-            </div>
-            <div class="subscribe-icon-wrapper">
-                <a href="https://medium.com/@mashunter" target="_blank">
-                    <img src="medium.png" alt="Medium Icon">Medium: @mashunter
-                </a>
-            </div>
-            <div class="subscribe-icon-wrapper">
-                <a href="https://github.com/mashunterbd" target="_blank">
-                    <img src="github.png" alt="GitHub Icon">GitHub: mashunterbd
-                </a>
-            </div>
-            <div class="subscribe-icon-wrapper">
-                <a href="https://www.facebook.com/MASSHUVO.FB" target="_blank">
-                    <img src="facebook-page.png" alt="Facebook Page Icon">Facebook Page: MASSHUVO.FB
-                </a>
-            </div>
+        <div class="footer">
+            <p>&copy; 2025 MD Abu Bakar Siddik. All rights reserved.</p>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Save Contact
         document.getElementById('saveContactBtn').addEventListener('click', function() {
             const imageUrl = document.getElementById('profileImage').src;
 
@@ -303,20 +561,19 @@
                         const base64data = reader.result.split(',')[1];
                         const vCardData = `BEGIN:VCARD
 VERSION:3.0
-FN:Md Abu Bakar Siddik  
+FN:MD Abu Bakar Siddik
 TEL:+8801875489971
 EMAIL:mdabubakar.mail.bd@gmail.com
 URL:https://mashunterbd.github.io/mashunter/
-NOTE:Follow me on:
-NOTE:Facebook - https://www.facebook.com/mashunter.fb
-NOTE:Instagram - https://www.instagram.com/mashunter.ins
-NOTE:LinkedIn - https://www.linkedin.com/in/mashunter
-NOTE:Twitter - https://twitter.com/mashunterbd
-NOTE:Subscribe me on:
-NOTE:YouTube - https://www.youtube.com/@mashunter
-NOTE:Medium - https://medium.com/@mashunter
-NOTE:GitHub - https://github.com/mashunterbd
-NOTE:Facebook Page - https://www.facebook.com/MASSHUVO.FB
+NOTE:Connect with me on social media and subscribe to my channels!
+NOTE:Facebook: https://www.facebook.com/mashunter.fb
+NOTE:Instagram: https://www.instagram.com/mashunter.ins
+NOTE:LinkedIn: https://www.linkedin.com/in/mashunter
+NOTE:Twitter: https://twitter.com/mashunterbd
+NOTE:YouTube: https://www.youtube.com/@mashunter
+NOTE:Medium: https://medium.com/@mashunter
+NOTE:GitHub: https://github.com/mashunterbd
+NOTE:Facebook Page: https://www.facebook.com/MASSHUVO.FB
 PHOTO;ENCODING=b;TYPE=JPEG:${base64data}
 END:VCARD`;
 
@@ -324,8 +581,7 @@ END:VCARD`;
                         const url = URL.createObjectURL(vCardBlob);
                         const a = document.createElement('a');
                         a.href = url;
-                        a.download = 'contact.vcf';
-                        a.style.display = 'none';
+                        a.download = 'MD_Abu_Bakar_Siddik.vcf';
                         document.body.appendChild(a);
                         a.click();
                         document.body.removeChild(a);
@@ -333,47 +589,18 @@ END:VCARD`;
                     };
                     reader.readAsDataURL(blob);
                 })
-                .catch(error => console.error('Error fetching the image:', error));
+                .catch(error => console.error('Error:', error));
         });
 
-        const toggleSwitch = document.getElementById('toggleSwitch');
-        const body = document.body;
-
-        toggleSwitch.addEventListener('change', function() {
-            body.classList.toggle('dark-mode');
+        // Generate QR Code
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://abs-hunter.github.io/Contact/",
+            width: 200,
+            height: 200,
+            colorDark: "#667eea",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
         });
     </script>
-    
-   <script>
-    function createFallingElements(type, count) {
-        const container = document.querySelector('.rain-container');
-        for (let i = 0; i < count; i++) {
-            const element = document.createElement('div');
-            element.classList.add(type);
-            element.style.left = Math.random() * 100 + 'vw';
-            element.style.animationDuration = Math.random() * 2 + 3 + 's'; // Random duration between 3s and 5s
-            container.appendChild(element);
-        }
-    }
-
-    function startRain() {
-        createFallingElements('flower', 30);
-        createFallingElements('paper', 30);
-        setTimeout(stopRain, 10000); // Stop after 10 seconds
-    }
-
-    function stopRain() {
-        const container = document.querySelector('.rain-container');
-        container.innerHTML = ''; // Remove all elements
-    }
-
-    window.addEventListener('load', startRain);
-</script>
-
-<!-- Add this at the bottom of your existing HTML content -->
-<div class="contact-button-container">
-    <a href="contact.html" class="btn btn-secondary contact-button">Contact me</a>
-</div>
-
 </body>
 </html>
